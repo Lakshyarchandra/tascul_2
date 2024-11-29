@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/Authcontext';  // Import AuthContext to access user data
+import { AuthContext } from '../context/Authcontext'; // Import AuthContext to access user data
 import axios from 'axios';
 
 const InternDashboard = () => {
   const { user } = useContext(AuthContext); // Access the user from AuthContext
   const [internshipDetails, setInternshipDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // Track loading state
   const [assessments, setAssessments] = useState([]);
   const [completedAssessments, setCompletedAssessments] = useState([]);
   const [review, setReview] = useState('');
@@ -32,9 +33,13 @@ const InternDashboard = () => {
         .catch((err) => {
           console.error('Error fetching internship details:', err.response?.data || err.message);
           setError('Error fetching internship details. Please check your credentials or try again later.');
+        })
+        .finally(() => {
+          setLoading(false); // End loading state
         });
     } else {
       setError('No token found. Please log in.');
+      setLoading(false);
     }
   }, []);
 
@@ -47,16 +52,39 @@ const InternDashboard = () => {
   };
 
   const handlePostReview = () => {
-    console.log('Review Posted:', review);
-    setReview('');
+    const token = localStorage.getItem('authToken'); // Retrieve token from localStorage
+
+    if (!review.trim()) {
+      alert('Review cannot be empty.');
+      return;
+    }
+
+    axios
+      .post(
+        'http://localhost:5000/api/intern/reviews',
+        { review, name: internshipDetails.name }, // Include the name in the review payload
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        alert('Review posted successfully!');
+        setReview('');
+      })
+      .catch((err) => {
+        console.error('Error posting review:', err.response?.data || err.message);
+        alert('Failed to post review. Please try again.');
+      });
   };
+
+  if (loading) {
+    return <div className="text-white text-center">Loading...</div>;
+  }
 
   if (error) {
     return <div className="text-white text-center">{error}</div>;
-  }
-
-  if (!internshipDetails) {
-    return <div className="text-white text-center">Loading...</div>;
   }
 
   return (

@@ -1,6 +1,4 @@
-
-
-const InternDashboard = () => {
+const AdminDashboard = () => {
   
 
   return (
@@ -10,4 +8,4 @@ const InternDashboard = () => {
   );
 };
 
-export default InternDashboard;
+export default AdminDashboard;
