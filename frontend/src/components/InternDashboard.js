@@ -1,25 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/Authcontext'; // Import AuthContext to access user data
+import { AuthContext } from '../context/Authcontext';
 import axios from 'axios';
 
 const InternDashboard = () => {
-  const { user } = useContext(AuthContext); // Access the user from AuthContext
+  const { user } = useContext(AuthContext);
   const [internshipDetails, setInternshipDetails] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
   const [assessments, setAssessments] = useState([]);
   const [completedAssessments, setCompletedAssessments] = useState([]);
   const [review, setReview] = useState('');
-  const [activeSection, setActiveSection] = useState('personal'); // Track active sidebar section
+  const [activeSection, setActiveSection] = useState('personal');
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken'); // Retrieve token from localStorage
+    const token = localStorage.getItem('authToken');
 
     if (token) {
       axios
         .get('http://localhost:5000/api/intern/details', {
           headers: {
-            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
@@ -35,7 +36,7 @@ const InternDashboard = () => {
           setError('Error fetching internship details. Please check your credentials or try again later.');
         })
         .finally(() => {
-          setLoading(false); // End loading state
+          setLoading(false);
         });
     } else {
       setError('No token found. Please log in.');
@@ -52,7 +53,7 @@ const InternDashboard = () => {
   };
 
   const handlePostReview = () => {
-    const token = localStorage.getItem('authToken'); // Retrieve token from localStorage
+    const token = localStorage.getItem('authToken');
 
     if (!review.trim()) {
       alert('Review cannot be empty.');
@@ -62,7 +63,7 @@ const InternDashboard = () => {
     axios
       .post(
         'http://localhost:5000/api/intern/reviews',
-        { review, name: internshipDetails.name }, // Include the name in the review payload
+        { review, name: internshipDetails.name },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,9 +89,10 @@ const InternDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-800 p-6">
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col lg:flex-row">
+      <div
+        className={`w-full lg:w-64 bg-gray-800 p-6 ${sidebarVisible ? 'block' : 'hidden'} lg:block`}
+      >
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold">Welcome, {user ? user.name : 'Loading...'}!</h2>
         </div>
@@ -116,11 +118,18 @@ const InternDashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      <div className="lg:hidden p-4">
+        <button
+          onClick={() => setSidebarVisible((prev) => !prev)}
+          className="text-white text-3xl"
+        >
+          {sidebarVisible ? '×' : '☰'}
+        </button>
+      </div>
+
       <div className="flex-1 p-8 space-y-8">
         {activeSection === 'personal' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Personal Information */}
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
               <p>Name: {internshipDetails.name}</p>

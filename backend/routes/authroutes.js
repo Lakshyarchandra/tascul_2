@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const authcontroller = require('../controllers/authcontroller'); // Ensure the correct path
+const authcontroller = require('../controllers/authcontroller');
 
-// Make sure the methods are correctly defined in authcontroller.js
-router.post('/register', authcontroller.register); // Call to the register method
-router.post('/login', authcontroller.login); // Call to the login method
+router.post('/register', authcontroller.register);
+router.post('/login', authcontroller.login);
 
 module.exports = router;

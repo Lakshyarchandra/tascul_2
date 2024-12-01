@@ -1,6 +1,6 @@
 const db = require('../database');
 
-// Function to fetch internship details
+
 exports.getInternshipDetails = (req, res) => {
   const { candidate_serial } = req.user;
 
@@ -36,7 +36,7 @@ exports.getInternshipDetails = (req, res) => {
   });
 };
 
-// Function to post a review
+
 exports.postReview = (req, res) => {
   const { candidate_serial } = req.user;
   const { review } = req.body;
@@ -49,7 +49,6 @@ exports.postReview = (req, res) => {
     return res.status(400).send('Review content is required.');
   }
 
-  // Fetch the user's name from the `users` table
   const getUserNameSql = 'SELECT name FROM users WHERE candidate_serial = ?';
   db.query(getUserNameSql, [candidate_serial], (err, userResults) => {
     if (err) {
@@ -62,8 +61,6 @@ exports.postReview = (req, res) => {
     }
 
     const name = userResults[0].name;
-
-    // Insert the review into the `reviews` table
     const insertReviewSql = 'INSERT INTO reviews (candidate_serial, name, review) VALUES (?, ?, ?)';
     db.query(insertReviewSql, [candidate_serial, name, review], (err) => {
       if (err) {

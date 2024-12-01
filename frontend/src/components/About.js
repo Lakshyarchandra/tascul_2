@@ -6,7 +6,7 @@ function About() {
       className="min-h-screen flex flex-col items-center justify-center text-white bg-cover bg-center bg-fixed"
       style={{ backgroundImage: `url(${require("../assets/bg.png")})` }}
     >
-      <header className="text-center mt-8">
+      <header className="text-center mt-8 px-4 md:px-0">
         <h1 className="text-[#7d624a] text-3xl font-bold mb-4 text-shadow-lg">
           Transforming the Future of Learning
         </h1>
@@ -18,8 +18,10 @@ function About() {
         </p>
       </header>
 
-      <section className="mt-8 w-full max-w-4xl">
-        <h2 className="text-[#7d624a] text-2xl font-semibold mb-4 text-center text-shadow-sm">Our Vision</h2>
+      <section className="mt-8 w-full max-w-4xl px-4 md:px-0">
+        <h2 className="text-[#7d624a] text-2xl font-semibold mb-4 text-center text-shadow-sm">
+          Our Vision
+        </h2>
         <p className="text-gray-300 text-center text-lg leading-relaxed mb-4">
           At Tascul, we envision a future where education is tailored to meet
           the diverse needs of every individual. Our goal is to leverage
@@ -33,8 +35,10 @@ function About() {
         </p>
       </section>
 
-      <section className="mt-8 w-full max-w-4xl">
-        <h2 className="text-[#7d624a] text-2xl font-semibold mb-4 text-center text-shadow-sm">Our Mission</h2>
+      <section className="mt-8 w-full max-w-4xl px-4 md:px-0">
+        <h2 className="text-[#7d624a] text-2xl font-semibold mb-4 text-center text-shadow-sm">
+          Our Mission
+        </h2>
         <div className="flex flex-wrap gap-6 justify-center mt-6">
           <div className="bg-[#252c48] p-6 rounded-lg shadow-xl w-[220px] text-center transform transition-all hover:translate-y-[-5px] hover:bg-opacity-20">
             <h3 className="text-[#7d624a] text-xl font-medium mb-2">Innovation</h3>

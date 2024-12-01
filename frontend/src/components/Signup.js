@@ -26,8 +26,8 @@ const SignUp = () => {
         formData
       );
       if (response.data.message) {
-        alert("Registration Completed"); // Alert after successful registration
-        navigate("/signin"); // Redirect to the SignIn page after a short delay
+        alert("Registration Completed");
+        navigate("/signin");
       }
     } catch (err) {
       setError("Registration failed. Please try again.");
@@ -48,7 +48,7 @@ const SignUp = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Name Input */}
+    
           <input
             type="text"
             name="name"
@@ -59,7 +59,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Candidate Serial Input */}
           <input
             type="text"
             name="candidateSerial"
@@ -70,7 +69,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Domain Input */}
           <input
             type="text"
             name="domain"
@@ -81,7 +79,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Email Input */}
           <input
             type="text"
             name="email"
@@ -92,7 +89,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Password Input */}
           <input
             type="password"
             name="password"
@@ -103,7 +99,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full py-3 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 text-white font-bold rounded-lg shadow-md transform hover:scale-105 hover:shadow-lg transition-all z-10"
@@ -112,7 +107,6 @@ const SignUp = () => {
           </button>
         </form>
 
-        {/* Redirect to Sign-In */}
         <div className="mt-6">
           <p className="text-gray-400">
             Already have an account?{" "}

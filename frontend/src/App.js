@@ -10,6 +10,7 @@ import AdminDashboard from './components/AdminDashboard';
 import InternDashboard from './components/InternDashboard';
 import Footer from './components/Footer';  // Import Footer
 import AuthContextProvider from './context/Authcontext';
+import OurTestimonials from './components/OurTestimonials';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/ourtestimonials" element={<OurTestimonials />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
